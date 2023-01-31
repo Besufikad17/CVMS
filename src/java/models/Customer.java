@@ -3,6 +3,8 @@ package models;
 
 public class Customer {
     
+    private int id;
+    
     private String fname;
 
     private String lname;
@@ -21,7 +23,8 @@ public class Customer {
     
     private double balance;
 
-    public Customer(String fname, String lname, String username, String email, String phonenumber, String password, String address, String role, double balance) {
+    public Customer(int id, String fname, String lname, String username, String email, String phonenumber, String password, String address, String role, double balance) {
+        this.id = id;
         this.fname = fname;
         this.lname = lname;
         this.username = username;
@@ -32,6 +35,10 @@ public class Customer {
         this.role = role;
         this.balance = balance;
         
+    }
+
+    public Customer(String fname, String lname, String username, String email, String phonenumber, String password, String address, String customer, double d) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     public String getFname() {
@@ -105,7 +112,12 @@ public class Customer {
     public void setRole(String role) {
         this.role = role;
     }
-    
-    
-    
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

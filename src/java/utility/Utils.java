@@ -1,11 +1,15 @@
+package utility;
+
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import models.Customer;
 import models.Organization;
+import models.Post;
 
 public class Utils {
 
@@ -30,7 +34,7 @@ public class Utils {
         return exists;
     }
     
-    public static void customerSignup(Customer customer) throws Exception{
+    public static int customerSignup(Customer customer) throws Exception{
         loadDriver();
         Connection con = getConnection();
         String query = "insert into Customer(fname,lname,username,email,phonenumber,password,address,role,balance) values(?,?,?,?,?,?,?,?,?)";
@@ -44,7 +48,9 @@ public class Utils {
         ps.setString(7, customer.getAddress());
         ps.setString(8, customer.getRole());
         ps.setDouble(9, customer.getBalance());
-        ps.executeUpdate();
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+        return rs.getInt("id");
     }
 
     public static boolean customerLogin(String email, String password) throws Exception {
@@ -59,7 +65,7 @@ public class Utils {
         return flag;
     }
     
-    public static void orgSignup(Organization org) throws Exception {
+    public static int orgSignup(Organization org) throws Exception {
         loadDriver();
         Connection con = getConnection();
         String query = "insert into Organization(name,type,description,phonenumber,address,email) values (?,?,?,?,?,?)";
@@ -70,7 +76,9 @@ public class Utils {
         ps.setString(4, org.getPhonenumber());
         ps.setString(5, org.getAddress());
         ps.setString(6, org.getEmail());
-        ps.executeUpdate();
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+        return rs.getInt("id");
     }
 
     public static boolean orgLogin(String email, String password) throws Exception {
@@ -111,6 +119,7 @@ public class Utils {
         ResultSet rs = ps.executeQuery();
         rs.next();
         return new Customer(
+                rs.getInt("id"),
                 rs.getString("fname"),
                 rs.getString("lname"),
                 rs.getString("username"),
@@ -124,7 +133,6 @@ public class Utils {
     }
 
     public static Organization getOrg(String email) throws Exception {
-        boolean flag = false;
         loadDriver();
         Connection con = getConnection();
         String query = "select * from Organization where email=?";
@@ -133,6 +141,7 @@ public class Utils {
         ResultSet rs = ps.executeQuery();
         rs.next();
         return new Organization(
+                rs.getInt("id"),
                 rs.getString("name"),
                 rs.getString("type"),
                 rs.getString("description"),
@@ -142,4 +151,49 @@ public class Utils {
                 rs.getString("address")
         );
     }
+    
+    public static ArrayList<Post> getAllPosts() throws Exception{
+        ArrayList<Post> posts = new ArrayList<>();
+        loadDriver();
+        Connection con = getConnection();
+        String query = "select * from Post";
+        PreparedStatement ps = con.prepareStatement(query);
+        ResultSet rs = ps.executeQuery();
+        while(rs.next()){
+            Post post = new Post(
+                 rs.getInt("automotive_id"),
+                 rs.getInt("quantity"),
+                 rs.getString("type"),
+                 rs.getDate("created_at"),
+                 rs.getDouble("price"),
+                 rs.getInt("organization_id"),
+                 rs.getBoolean("is_hidden")
+            );
+            posts.add(post);
+        }
+        return posts;
+    }
+    
+    public static ArrayList<Post> getPostsByOrgId(int org_id) throws Exception{
+        ArrayList<Post> posts = new ArrayList<>();
+        loadDriver();
+        Connection con = getConnection();
+        String query = "select * from Post where organization_id=?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setInt(1, org_id);
+        ResultSet rs = ps.executeQuery();
+        while(rs.next()){
+            Post post = new Post(
+                 rs.getInt("automotive_id"),
+                 rs.getInt("quantity"),
+                 rs.getString("type"),
+                 rs.getDate("created_at"),
+                 rs.getDouble("price"),
+                 rs.getInt("organization_id"),
+                 rs.getBoolean("is_hidden")
+            );
+            posts.add(post);
+        }
+        return posts;
+    } 
 }

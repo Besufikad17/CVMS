@@ -1,3 +1,4 @@
+import utility.Utils;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -35,7 +36,8 @@ public class CustomerSignupController extends HttpServlet {
                      out.print("Customer exists with the same email address please try again <a href=\"signup.html\">here</a>");
                 }else {
                     Customer customer = new Customer(fname,lname,username, email, phonenumber, password, address, "customer", Math.random()*10000);
-                    Utils.customerSignup(customer);
+                    int id = Utils.customerSignup(customer);
+                    customer.setId(id);
                     HttpSession session = request.getSession();
                     if(session.getAttribute("user") != null){
                         session.removeAttribute("user");

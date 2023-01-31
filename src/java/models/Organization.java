@@ -2,6 +2,8 @@ package models;
 
 public class Organization {
     
+    private int id;
+    
     private String name;
 
     private String type;
@@ -16,7 +18,8 @@ public class Organization {
 
     private String address;
 
-    public Organization(String name, String type, String description, String email, String phonenumber, String password, String address) {
+    public Organization(int id, String name, String type, String description, String email, String phonenumber, String password, String address) {
+        this.id = id;
         this.name = name;
         this.type = type;
         this.description = description;
@@ -24,6 +27,10 @@ public class Organization {
         this.phonenumber = phonenumber;
         this.password = password;
         this.address = address;
+    }
+
+    public Organization(String name, String type, String description, String email, String phonenumber, String password, String address) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     public String getName() {
@@ -82,5 +89,11 @@ public class Organization {
         this.address = address;
     }
     
-    
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }
