@@ -1,0 +1,64 @@
+<html>
+    <head>
+        <title>Signup</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="assets/css/Style.css"/>
+    </head>
+    <body>
+        <div>
+            <div class="container">
+                <div class="row">
+                    <div class="left-child">
+                        <form action="CustomerSignupController" method="post" class="signup-form"><br><br>
+                            <h1>Join as customer</h1><br>
+
+                            <div class="form-row">
+                                <input type="text" class="text" name="fname" placeholder="first name" required>
+                                <input type="text" class="text" name="lname" placeholder="last name" required>
+                            </div>
+                            <div class="form-row">
+                                <input type="text" class="text" name="phonenumber" placeholder="phonenumber" required>
+                                <input type="text" class="text" name="address" placeholder="city, sub-city" required>
+                            </div>
+                            <div class="form-row">
+                                <input type="text" class="text" name="username" placeholder="username" required>
+                                <input type="email" class="text" name="email" placeholder="email"  required>
+                            </div>
+                            <div class="form-row">
+                                <input type="password" class="text" name="password" placeholder="password" required>
+                                <input type="password" class="text" name="cpassword" placeholder="confirm password" required>
+                            </div>
+
+                            <button class="primary">Signup</button><br />
+                        </form>
+                    </div>
+                    <div class="right-child">
+                        <form class="signup-form" method="post" action="OrgSignupController"><br><br>
+                            <h1>Join as organization</h1><br>
+
+                            <div class="form-row">
+                                <input type="text" class="text2" name="name" placeholder="name" required>
+                                <input type="text" class="text2" name="type" placeholder="type" required>
+                            </div>
+                            <div class="form-row">
+                                <input type="text" class="text2" name="phonenumber" placeholder="phonenumber" required>
+                                <input type="text" class="text2" name="address" placeholder="city, sub-city" required>
+                            </div>
+                            <div class="form-row">
+                                <input type="text" class="text2" name="description" placeholder="description" required>
+                                <input type="email" class="text2" name="email" placeholder="email" required>
+                            </div>
+                            <div class="form-row">
+                                <input type="password" class="text2" name="password" placeholder="password" required>
+                                <input type="password" class="text2" name="cpassword" placeholder="confirm password" required>
+                            </div>
+
+                            <button class="secondary">Signup</button><br />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,105 @@
+<html>
+    <head>
+        <title>CVMS</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="assets/css/Style.css"/>
+    </head>
+    <body>
+        <div>
+            <header class="header ">
+                <a href="index.html" class="logo"><span>rapid</span>rental</a>
+                <nav class="navbar">
+                    <a href="vehicles.jsp">vehicles</a>
+                    <a href="#service">service</a>
+                    <a href="#contact">contact</a>
+                </nav>
+                <div id="login-btn">
+                    <button class="btn" onclick="openLoginForm()">login</button>
+                </div>
+                <div class="form-popup" id="myForm">
+                    <form action="LoginController" method="post" class="form-container">
+                        <h1>Login</h1>
+
+                        <input type="email" placeholder="email" name="email" class="text2" required>
+                        <input type="password" placeholder="password" name="password" class="text2" required><br>
+
+                        <a href="signup.html" class="link">Dont have account ?</a><br>
+
+                        <button type="submit" class="secondary">Login</button>
+                        <button type="button" class="cancel" onclick="javascript:closeLoginForm()">Close</button>
+                    </form>
+                </div>
+            </header>
+            <div>
+                <img class="bg" alt="" src="assets/imgs/viktor-theo-MKG01FfX8nM-unsplash.jpg" />
+                <p class="p">Online car rental reservation system
+                    can help you manage multiple bookings, move
+                    between bookings and track different rental statuses.</p>
+            </div>
+            <div class="container"><br/>
+                <div class="header-row">
+                    <h1>Services</h1>
+                </div>
+                <div class="cards-row" id="service">
+                    <div class="card"><br/>
+                        <img src="assets/imgs/icons8-assistive-technology-100.png"/>
+                        <p>Multi-platform system
+                            accessible for everyone.</p>
+                    </div>
+                    <div class="card"><br/>
+                        <img src="assets/imgs/icons8-reliable-64.svg"/>
+                        <p>Reliable and error free system
+                            running 24/7.</p>
+                    </div>
+                    <div class="card"><br/>
+                        <img src="assets/imgs/icons8-safe-100.png"/>
+                        <p>Provide safe system
+                            where users browse products.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="container"><br/>
+                <div class="header-row">
+                    <h1>Contact Us</h1>
+                </div>
+                <div class="cards-row" id="contact">
+                    <div class="left-child2">
+                        <img class="bg2" src="assets/imgs/michal-biernat-h0xEUQXzU38-unsplash%20(1).jpg" />
+                    </div>
+                    <div class="left-child2">
+                        <form class="signup-form" action="" method="post">
+                            <input type="email" name="email" class="text2" placeholder="email" required>
+                            <input type="text" name="subject" class="text2" placeholder="subject" required>
+                            <textarea name="message" placeholder="message" class="text2" rows="5" cols="5" required></textarea>
+                            <button class="secondary">Send</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+        <p>@2023 <span>rapid</span>rental</p>
+        <div class="cards-row">
+            <div class="icons">
+                <img src="assets/imgs/icons8-facebook-100.png" class="icon" />
+            </div>
+            <div class="icons">
+                <img src="assets/imgs/icons8-reddit-90.png" class="icon"/>
+            </div>
+            <div class="icons">
+                <img src="assets/imgs/icons8-twitter-90.png" class="icon" />
+            </div>
+        </div>
+    </div>
+    </body>
+    <script>
+        function openLoginForm() {
+            document.getElementById("myForm").style.display = "flex";
+        }
+
+        function closeLoginForm() {
+            document.getElementById("myForm").style.display = "none";
+        }
+    </script>
+</html>
