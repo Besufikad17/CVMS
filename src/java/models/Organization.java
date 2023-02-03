@@ -30,7 +30,13 @@ public class Organization {
     }
 
     public Organization(String name, String type, String description, String email, String phonenumber, String password, String address) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        this.name = name;
+        this.type = type;
+        this.description = description;
+        this.email = email;
+        this.phonenumber = phonenumber;
+        this.password = password;
+        this.address = address;
     }
 
     public String getName() {

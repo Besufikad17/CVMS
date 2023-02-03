@@ -45,7 +45,7 @@
                                 <div class="row">
                                     <img src="assets/imgs/empty.png" alt="login" class="bg3" /><br>
                                 </div>
-                                <span class="msg">No posts :( click <a href="postForm.html">here</a> to create new post</span>
+                                <span class="msg">No posts :( click <a href="post.html">here</a> to create new post</span>
                             </div>
                         <%
                     }else{

@@ -5,6 +5,8 @@ import java.sql.Date;
 
 public class Post {
     
+    private int id;
+    
     private int automotive_id;
     
     private int quantity;
@@ -20,6 +22,17 @@ public class Post {
     private boolean isHidden;
 
     public Post(int automotive_id, int quantity, String type, Date created_at, double price, int organization_id, boolean isHidden) {
+        this.automotive_id = automotive_id;
+        this.quantity = quantity;
+        this.type = type;
+        this.created_at = created_at;
+        this.price = price;
+        this.organization_id = organization_id;
+        this.isHidden = isHidden;
+    }
+    
+    public Post(int id, int automotive_id, int quantity, String type, Date created_at, double price, int organization_id, boolean isHidden) {
+        this.id = id;
         this.automotive_id = automotive_id;
         this.quantity = quantity;
         this.type = type;
@@ -84,7 +97,13 @@ public class Post {
     public void setIsHidden(boolean isHidden) {
         this.isHidden = isHidden;
     }
-    
-    
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
     
 }

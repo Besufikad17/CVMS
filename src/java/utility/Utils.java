@@ -1,12 +1,14 @@
 package utility;
 
 
+import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import models.Automobile;
 import models.Customer;
 import models.Organization;
 import models.Post;
@@ -196,4 +198,28 @@ public class Utils {
         }
         return posts;
     } 
+    
+    public static int createAutomobile(Automobile auto) throws Exception {
+        loadDriver();
+        Connection con = getConnection();
+        String query = "insert into Automotive(model,manufacturer,year,style,color,no_standard_seats,img_url,engine) values(?,?,?,?,?,?,?,?)";
+        PreparedStatement ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+        ps.setString(1, auto.getModel());
+        ps.setString(2, auto.getManufacturer());
+        ps.setInt(3, auto.getYear());
+        ps.setString(4, auto.getStyle());
+        ps.setString(5, auto.getColor());
+        ps.setInt(6, auto.getNo_seats());
+        ps.setString(7, auto.getImg_url());
+        ps.setString(8, auto.getEngine());
+        ps.executeUpdate();
+        ResultSet rs = ps.getGeneratedKeys();
+        rs.next();
+        return (int) rs.getLong(1);
+    }
+    
+    public static void createPost(Post post) throws Exception {
+        
+    }
+    
 }

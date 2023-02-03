@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <title>Create a post</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="assets/css/Style.css"/>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="right-child">
+                    <form action="PostController" method="post" class="signup-form" enctype="multipart/form-data">
+                        <h1>Basic Automobile Info</h1><br>
+                         <div class="form-row">
+                              <input type="text" name="model" placeholder="model" class="text2" required>
+                              <input type="text" name="manufacturer" placeholder="manufacturer"  class="text2" required>
+                         </div>
+                         <div class="form-row">
+                             <input type="number" name="year" min="1920" placeholder="year" class="text2" required> 
+                             <input type="text" name="style" placeholder="style" class="text2" required>
+                         </div>
+                          <div class="form-row">
+                             <input type="number" name="number-of-seats" placeholder="number of seats" class="text2" required> 
+                             <input type="text" name="color" placeholder="color" class="text2" required>
+                         </div>
+                        <div class="form-row">
+                              <input type="text" name="engine" placeholder="engine" class="text2" required>
+                              <input type="file" name="img" class="text2" />
+                         </div>
+                        
+                         <h1>Post</h1><br>
+      
+                         <div class="form-row">
+                             <input type="number" name="quantity" placeholder="quantity" class="text2" required> 
+                             <input type="text"   name="type" placeholder="type" class="text" required>
+                         </div>
+                         
+                         <input type="number" name="price" min="500" placeholder="price" class="text2" required>
+                         <button class="secondary">Submit</button><br />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

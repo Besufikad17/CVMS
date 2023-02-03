@@ -38,7 +38,15 @@ public class Customer {
     }
 
     public Customer(String fname, String lname, String username, String email, String phonenumber, String password, String address, String customer, double d) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        this.fname = fname;
+        this.lname = lname;
+        this.username = username;
+        this.email = email;
+        this.phonenumber = phonenumber;
+        this.password = password;
+        this.address = address;
+        this.role = role;
+        this.balance = balance;
     }
 
     public String getFname() {
