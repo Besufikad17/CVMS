@@ -17,8 +17,10 @@ public class Organization {
     private String password;
 
     private String address;
+    
+    private double balance;
 
-    public Organization(int id, String name, String type, String description, String email, String phonenumber, String password, String address) {
+    public Organization(int id, String name, String type, String description, String email, String phonenumber, String password, String address, double balance) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -27,9 +29,10 @@ public class Organization {
         this.phonenumber = phonenumber;
         this.password = password;
         this.address = address;
+        this.balance = balance;
     }
 
-    public Organization(String name, String type, String description, String email, String phonenumber, String password, String address) {
+    public Organization(String name, String type, String description, String email, String phonenumber, String password, String address, double balance) {
         this.name = name;
         this.type = type;
         this.description = description;
@@ -37,6 +40,7 @@ public class Organization {
         this.phonenumber = phonenumber;
         this.password = password;
         this.address = address;
+        this.balance = balance;
     }
 
     public String getName() {
@@ -102,4 +106,14 @@ public class Organization {
     public void setId(int id) {
         this.id = id;
     }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+    
+    
 }

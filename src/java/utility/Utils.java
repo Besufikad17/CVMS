@@ -150,7 +150,8 @@ public class Utils {
                 rs.getString("email"),
                 rs.getString("phonenumber"),
                 rs.getString("password"),
-                rs.getString("address")
+                rs.getString("address"),
+                rs.getDouble("balance")
         );
     }
     
@@ -218,8 +219,49 @@ public class Utils {
         return (int) rs.getLong(1);
     }
     
+    public static Automobile getAutomobileById(int id) throws Exception {
+        loadDriver();
+        Connection con = getConnection();
+        String query = "select * from Automotive where id=?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setInt(1, id);
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+        return new Automobile(
+             rs.getInt("id"),
+             rs.getString("model"),
+             rs.getString("manufacturer"),
+             rs.getInt("year"),
+             rs.getString("style"),
+             rs.getString("color"),
+             rs.getInt("no_standard_seats"),
+             rs.getString("img_url"),
+             rs.getString("engine")
+        );
+    }
+    
+    public static void updateOrgBalance(int id, double newBalance) throws Exception {
+        loadDriver();
+        Connection con = getConnection();
+        PreparedStatement ps = con.prepareStatement("update Organization set balance=? where id=?");
+        ps.setDouble(1, newBalance);
+        ps.setInt(2, id);
+        ps.executeUpdate();
+    }
+    
     public static void createPost(Post post) throws Exception {
-        
+        loadDriver();
+        Connection con = getConnection();
+        PreparedStatement ps = con.prepareStatement("insert into Post(automotive_id, quantity,"
+                + " type, created_at, price, organization_id, is_hidden) values(?,?,?,?,?,?,?)");
+        ps.setInt(1, post.getAutomotive_id());
+        ps.setInt(2, post.getQuantity());
+        ps.setString(3, post.getType());
+        ps.setDate(4, post.getCreated_at());
+        ps.setDouble(5, post.getPrice());
+        ps.setInt(6, post.getOrganization_id());
+        ps.setBoolean(7, post.isIsHidden());
+        ps.executeUpdate();
     }
     
 }

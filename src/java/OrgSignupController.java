@@ -34,7 +34,7 @@ public class OrgSignupController extends HttpServlet {
                 }else if(Utils.userExists(email, "Customer")){ 
                      out.print("Customer exists with the same email address please try again <a href=\"signup.html\">here</a>");
                 }else {
-                    Organization org = new Organization(name, type, description, email, phonenumber, password, address);
+                    Organization org = new Organization(name, type, description, email, phonenumber, password, address, Math.random()*10000);
                     Utils.orgSignup(org);
                     HttpSession session = request.getSession();
                     if (session.getAttribute("user") != null) {

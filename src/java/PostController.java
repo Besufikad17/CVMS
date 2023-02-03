@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.sql.Date;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpSession;
 import models.Automobile;
 import models.Organization;
@@ -43,14 +44,35 @@ public class PostController extends HttpServlet {
         double price = Double.parseDouble(req.getParameter("price"));
     
         try {
+            
+            // uploading file
             Part filePart = req.getPart("img");
             String fileName = filePart.getSubmittedFileName();
             filePart.write("/home/bes/NetBeansProjects/CVMS/build/web/assets/imgs/upload/" + fileName);
+            
+            // creating automobile data           
             Automobile a = new Automobile(model, manufacturer, year, style, color,no_seats, "/home/bes/NetBeansProjects/CVMS/build/web/assets/imgs/upload/" + fileName ,engine);
             int id = Utils.createAutomobile(a);
+            
+            // getting org info
             HttpSession session = req.getSession();
-            int org_id = ((Organization)session.getAttribute("user")).getId();
+            Organization org = (Organization)session.getAttribute("user");
+            int org_id = org.getId();
+            
+            // creating post data
             Post p = new Post(id, quantity, type, new Date(System.currentTimeMillis()), price, org_id, false);
+            
+            // checking balance of org and cutting of 10% price listed in the post
+            double newBalance = org.getBalance() - (0.1 * price);
+            org.setBalance(newBalance);
+            if(newBalance < 0){
+                pw.print("Insufficient balance!!");
+            }else{
+                Utils.updateOrgBalance(id, newBalance);
+                Utils.createPost(p);
+                RequestDispatcher rd = req.getRequestDispatcher("vehicles.jsp");
+                rd.include(req, res);
+            }
         } catch (Exception e){
             e.printStackTrace();
         }
