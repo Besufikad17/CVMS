@@ -125,6 +125,43 @@ header{
     border-radius: 5px;
 }
 
+.card2 {
+    width: 450px;
+    height: 350px;
+    background-color: rgb(117, 156, 97);
+    color: white;
+    text-align: left;
+    margin-right: 48px;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+.cards-row2 {
+    display: grid;
+    grid-template-columns: repeat(2, 450px);
+    grid-auto-rows: auto;
+    grid-gap: 5px;
+     /*minmax(45px, 1fr)*/
+}
+
+.card2:hover {
+    border-style: solid 1px black;
+    box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+    /*box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;*/
+    /*box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;*/
+}
+
+
+.details {
+    padding-left: 20px;
+}
+
+.card2 img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
 .card p{
     font-family: monospace;
     font-size: 2.5rem;

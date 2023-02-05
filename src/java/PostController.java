@@ -48,10 +48,10 @@ public class PostController extends HttpServlet {
             // uploading file
             Part filePart = req.getPart("img");
             String fileName = filePart.getSubmittedFileName();
-            filePart.write("/home/bes/NetBeansProjects/CVMS/build/web/assets/imgs/upload/" + fileName);
+            filePart.write("/home/bes/NetBeansProjects/CVMS/web/assets/imgs/upload/" + fileName);
             
             // creating automobile data           
-            Automobile a = new Automobile(model, manufacturer, year, style, color,no_seats, "/home/bes/NetBeansProjects/CVMS/build/web/assets/imgs/upload/" + fileName ,engine);
+            Automobile a = new Automobile(model, manufacturer, year, style, color,no_seats, "assets/imgs/upload/" + fileName ,engine);
             int id = Utils.createAutomobile(a);
             
             // getting org info
@@ -64,7 +64,7 @@ public class PostController extends HttpServlet {
             
             // checking balance of org and cutting of 10% price listed in the post
             double newBalance = org.getBalance() - (0.1 * price);
-            org.setBalance(newBalance);
+            Utils.updateOrgBalance(id, newBalance);
             if(newBalance < 0){
                 pw.print("Insufficient balance!!");
             }else{

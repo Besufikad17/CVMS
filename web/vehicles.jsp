@@ -31,36 +31,30 @@
                                 </div>
                             <%
                         } else {
-                            for (int i = 0; i < posts.size(); i++) {
-                                if (i % 2 != 0) {
-                                    Post p = posts.get(i);
-                                    Post p2 = posts.get(i + 1);
-                                    Automobile a = Utils.getAutomobileById(p.getAutomotive_id());
-                                    Automobile a2 = Utils.getAutomobileById(p2.getAutomotive_id());
-                                    %>
-                                    <div class="container">
-                                        <div class="cards-row">
-                                            <div class="card">
-                                                <img src="<%=(a.getImg_url())%>" />
-                                                <h1><%=(a.getModel())%></h1>
-                                                <h1>Quantity: <%=(p.getQuantity())%></h1>
-                                                <h1>Type: <%=(p.getType())%></h1>
-                                                <h1>Price: <%=(p.getPrice())%></h1>
-                                            </div>
-                                            <div class="card">
-                                                <img src="<%=(a2.getImg_url())%>" />
-                                                <h1><%=(a2.getModel())%></h1>
-                                                <h1>Quantity: <%=(p2.getQuantity())%></h1>
-                                                <h1>Type: <%=(p2.getType())%></h1>
-                                                <h1>Price: <%=(p2.getPrice())%></h1>
-                                            </div>
+                                %>
+                                  <div class="container">
+                                        <div class="cards-row2">
+                                             <%
+                                              for (int i = 0; i < posts.size(); i++) {
+                                                Post p = posts.get(i);
+                                                Automobile a = Utils.getAutomobileById(p.getAutomotive_id());
+                                                %>
+                                                    <div class="card2">
+                                                        <img src="<%=(a.getImg_url())%>" />
+                                                        <div class="details">
+                                                            <h1><%=(a.getModel())%></h1>
+                                                            <h1>Quantity: <%=(p.getQuantity())%></h1>
+                                                            <h1>Type: <%=(p.getType())%></h1>
+                                                            <h1>Price: <%=(p.getPrice())%> birr</h1>
+                                                        </div>
+                                                    </div>
+                                                <%
+                                               }
+                                             %>
                                         </div>
                                     </div>
-
-                                    <%
-                                        }
-                                    }
-                                }
+                                <%
+                        }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -78,18 +72,32 @@
                                 </div>
                             <%
                         } else {
-                            for (Post p : posts) {
-                                Automobile a = Utils.getAutomobileById(p.getAutomotive_id());
                                 %>
-                                    <div>
-                                        <img src="<%=(a.getImg_url())%>" />
-                                        <h1><%=(a.getModel())%></h1>
-                                        <h1>Quantity: <%=(p.getQuantity())%></h1>
-                                        <h1>Type: <%=(p.getType())%></h1>
-                                        <h1>Price: <%=(p.getPrice())%></h1>
+                                  <div class="container">
+                                        <div class="cards-row2">
+                                             <%
+                                              for (int i = 0; i < posts.size(); i++) {
+                                                Post p = posts.get(i);
+                                                Automobile a = Utils.getAutomobileById(p.getAutomotive_id());
+                                                    %>
+                                                       <div class="card2">
+                                                            <img src="<%=(a.getImg_url())%>" />
+                                                            <div class="details">
+                                                                <h1><%=(a.getModel())%></h1>
+                                                                <h1>Quantity: <%=(p.getQuantity())%></h1>
+                                                                <h1>Type: <%=(p.getType())%></h1>
+                                                                <h1>Price: <%=(p.getPrice())%> birr</h1>
+                                                            </div>
+                                                        </div>
+                                                    <%
+                                               }
+                                             %>
+                                        </div>
                                     </div>
                                 <%
-                            }
+                              %><div class="container">
+                                    <span class="msg"><a href="post.html">create new post</a></span>
+                              </div><%
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
