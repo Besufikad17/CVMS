@@ -35,16 +35,17 @@ public class CustomerSignupController extends HttpServlet {
                 }else if(Utils.userExists(email, "Customer")){ 
                      out.print("Customer exists with the same email address please try again <a href=\"signup.html\">here</a>");
                 }else {
-                    Customer customer = new Customer(fname,lname,username, email, phonenumber, password, address, "customer", Math.random()*10000);
-                    int id = Utils.customerSignup(customer);
+                    Customer customer = new Customer(fname,lname,username, email, phonenumber, password, address, "customer", Math.random()*10000 > 0 ? Math.random()*10000 : 1000.0);
+                    Utils.customerSignup(customer);
+                    int id = Utils.getCustomer(email).getId();
                     customer.setId(id);
                     HttpSession session = request.getSession();
                     if(session.getAttribute("user") != null){
                         session.removeAttribute("user");
                     }
                      session.setAttribute("user", customer);
-                    RequestDispatcher rd = request.getRequestDispatcher("vehicles.jsp");
-                    rd.include(request, response);
+                     session.setMaxInactiveInterval(3600);
+                    response.sendRedirect("vehicles.jsp");
                 }
            }else{
                out.print("Password doesn't match please try again <a href=\"signup.html\">here</a>");

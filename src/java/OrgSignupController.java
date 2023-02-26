@@ -41,8 +41,8 @@ public class OrgSignupController extends HttpServlet {
                         session.removeAttribute("user");
                     }
                     session.setAttribute("user", org);
-                    RequestDispatcher rd = request.getRequestDispatcher("vehicles.jsp");
-                    rd.include(request, response);
+                    session.setMaxInactiveInterval(3600);
+                    response.sendRedirect("vehicles.jsp");
                 }
             } else {
                 out.print("Password doesn't match please try again <a href=\"signup.html\">here</a>");

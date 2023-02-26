@@ -54,24 +54,25 @@ public class PostController extends HttpServlet {
             Automobile a = new Automobile(model, manufacturer, year, style, color,no_seats, "assets/imgs/upload/" + fileName ,engine);
             int id = Utils.createAutomobile(a);
             
+         
+            
             // getting org info
             HttpSession session = req.getSession();
             Organization org = (Organization)session.getAttribute("user");
             int org_id = org.getId();
+            System.out.println(org_id);
             
             // creating post data
             Post p = new Post(id, quantity, type, new Date(System.currentTimeMillis()), price, org_id, false);
             
             // checking balance of org and cutting of 10% price listed in the post
             double newBalance = org.getBalance() - (0.1 * price);
-            Utils.updateOrgBalance(id, newBalance);
-            if(newBalance < 0){
+            if(newBalance <= 0){
                 pw.print("Insufficient balance!!");
             }else{
-                Utils.updateOrgBalance(id, newBalance);
+                Utils.updateOrgBalance(org_id, newBalance);
                 Utils.createPost(p);
-                RequestDispatcher rd = req.getRequestDispatcher("vehicles.jsp");
-                rd.include(req, res);
+                res.sendRedirect("vehicles.jsp");
             }
         } catch (Exception e){
             e.printStackTrace();

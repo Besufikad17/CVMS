@@ -39,8 +39,9 @@ public class LoginController extends HttpServlet{
                     }else{
                         Organization org = Utils.getOrg(email);
                         session.setAttribute("user", org);
-                    }   RequestDispatcher rd = req.getRequestDispatcher("vehicles.jsp");
-                    rd.include(req, res);
+                    }  
+                    res.sendRedirect("vehicles.jsp");
+                    session.setMaxInactiveInterval(3600);
                     break;
                 default:
                     pw.print("User not found!! please try again <a href=\"index.html\">here</a>");

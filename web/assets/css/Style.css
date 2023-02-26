@@ -127,11 +127,22 @@ header{
 
 .card2 {
     width: 450px;
-    height: 350px;
+    height: 385px;
     background-color: rgb(117, 156, 97);
     color: white;
     text-align: left;
     margin-right: 48px;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+.reservations {
+    width: 400px;
+    height: 320px;
+    background-color: rgb(117, 156, 97);
+    color: white;
+    text-align: left;
+    padding: 10px;
     margin-top: 10px;
     border-radius: 5px;
 }
@@ -144,11 +155,18 @@ header{
      /*minmax(45px, 1fr)*/
 }
 
+.reservations-row {
+    display: grid;
+    grid-template-columns: repeat(2, 450px);
+    grid-auto-rows: auto;
+    grid-gap: 5px;
+    overflow-y: scroll;
+}
+
+
 .card2:hover {
     border-style: solid 1px black;
     box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
-    /*box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;*/
-    /*box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;*/
 }
 
 
@@ -159,6 +177,12 @@ header{
 .card2 img {
     width: 100%;
     height: 200px;
+    object-fit: cover;
+}
+
+.reservations img {
+    width: 100%;
+    height: 180px;
     object-fit: cover;
 }
 
@@ -178,6 +202,15 @@ header{
     font-size: 3rem;
 }
 
+.h1 {
+    font-size: 3rem;
+}
+
+.reserve {
+    color: white;
+    font-size: 2rem;
+}
+
 .left-child{
     width: auto;
     height: auto;
@@ -186,6 +219,11 @@ header{
     padding: 10px;
     color: white;
     text-align: left;
+}
+
+.paragraph {
+    font-size: 2rem;
+    color:black;
 }
 
 .right-child{
@@ -253,7 +291,6 @@ header{
     border-color: #759C61FF;
     border-style: solid;
     box-sizing: border-box;
-    text-transform: lowercase;
 }
 
 .signup-form{

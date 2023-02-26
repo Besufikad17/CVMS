@@ -8,9 +8,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import models.Automobile;
 import models.Customer;
 import models.Organization;
+import models.Payment;
 import models.Post;
 
 public class Utils {
@@ -36,7 +38,7 @@ public class Utils {
         return exists;
     }
     
-    public static int customerSignup(Customer customer) throws Exception{
+    public static void customerSignup(Customer customer) throws Exception{
         loadDriver();
         Connection con = getConnection();
         String query = "insert into Customer(fname,lname,username,email,phonenumber,password,address,role,balance) values(?,?,?,?,?,?,?,?,?)";
@@ -50,9 +52,7 @@ public class Utils {
         ps.setString(7, customer.getAddress());
         ps.setString(8, customer.getRole());
         ps.setDouble(9, customer.getBalance());
-        ResultSet rs = ps.executeQuery();
-        rs.next();
-        return rs.getInt("id");
+        ps.executeUpdate();
     }
 
     public static boolean customerLogin(String email, String password) throws Exception {
@@ -67,20 +67,20 @@ public class Utils {
         return flag;
     }
     
-    public static int orgSignup(Organization org) throws Exception {
+    public static void orgSignup(Organization org) throws Exception {
         loadDriver();
         Connection con = getConnection();
-        String query = "insert into Organization(name,type,description,phonenumber,address,email) values (?,?,?,?,?,?)";
+        String query = "insert into Organization(name,type,description,phonenumber,address,password,email,balance) values (?,?,?,?,?,?,?,?)";
         PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, org.getName());
         ps.setString(2, org.getType());
         ps.setString(3, org.getDescription());
         ps.setString(4, org.getPhonenumber());
         ps.setString(5, org.getAddress());
-        ps.setString(6, org.getEmail());
-        ResultSet rs = ps.executeQuery();
-        rs.next();
-        return rs.getInt("id");
+        ps.setString(6, org.getPassword());
+        ps.setString(7, org.getEmail());
+        ps.setDouble(8, org.getBalance());
+        ps.executeUpdate();
     }
 
     public static boolean orgLogin(String email, String password) throws Exception {
@@ -159,11 +159,12 @@ public class Utils {
         ArrayList<Post> posts = new ArrayList<>();
         loadDriver();
         Connection con = getConnection();
-        String query = "select * from Post";
+        String query = "select * from Post where is_hidden=0";
         PreparedStatement ps = con.prepareStatement(query);
         ResultSet rs = ps.executeQuery();
         while(rs.next()){
             Post post = new Post(
+                 rs.getInt("id"),
                  rs.getInt("automotive_id"),
                  rs.getInt("quantity"),
                  rs.getString("type"),
@@ -249,6 +250,15 @@ public class Utils {
         ps.executeUpdate();
     }
     
+    public static void updateCustomerBalance(int id, double newBalance) throws Exception {
+        loadDriver();
+        Connection con = getConnection();
+        PreparedStatement ps = con.prepareStatement("update Customer set balance=? where id=?");
+        ps.setDouble(1, newBalance);
+        ps.setInt(2, id);
+        ps.executeUpdate();
+    }
+    
     public static void createPost(Post post) throws Exception {
         loadDriver();
         Connection con = getConnection();
@@ -264,4 +274,86 @@ public class Utils {
         ps.executeUpdate();
     }
     
+    public static ArrayList<Integer> getReservedCarsId(int customer_id) throws Exception {
+        ArrayList<Integer> cars = new ArrayList<>();
+        loadDriver();
+        Connection con = getConnection();
+        PreparedStatement ps = con.prepareStatement("select * from Payment where customer_id=?");
+        ps.setInt(1, customer_id);
+        ResultSet rs = ps.executeQuery();
+        while(rs.next()){
+            cars.add(rs.getInt("post_id"));
+        }
+        return cars;
+    }
+    
+    public static Post getPostById(int id) throws Exception {
+        loadDriver();
+        Connection con = getConnection();
+        PreparedStatement ps = con.prepareStatement("select * from Post where id=?");
+        ps.setInt(1,id);
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+        return new Post(
+               rs.getInt("id"),
+               rs.getInt("automotive_id"),
+               rs.getInt("quantity"),
+               rs.getString("type"),
+               rs.getDate("created_at"),
+               rs.getDouble("price"),
+               rs.getInt("organization_id"),
+               rs.getBoolean("is_hidden")
+        );
+    }
+
+    public static void updatePostQuantity(int id, int newQuantity) throws Exception {
+        loadDriver();
+        Connection con = getConnection();
+        PreparedStatement ps = con.prepareStatement("update Post set quantity=? where id=?");
+        ps.setInt(1, newQuantity);
+        ps.setInt(2, id);
+        ps.executeUpdate();
+    }
+    
+    public static void hidePost(int id) throws Exception {
+        loadDriver();
+        Connection con = getConnection();
+        PreparedStatement ps = con.prepareStatement("update Post set is_hidden=? where id=?");
+        ps.setBoolean(1, true);
+        ps.setInt(2, id);
+        ps.executeUpdate();
+    }
+    
+    public static void pay(Payment payment) throws Exception {
+        loadDriver();
+        Connection con = getConnection();
+        PreparedStatement ps = con.prepareStatement("insert into Payment(customer_id,post_id,organization_id,amount,created_at) values(?,?,?,?,?)");
+        ps.setInt(1, payment.getCustomer_id());
+        ps.setInt(2, payment.getPost_id());
+        ps.setInt(3, payment.getOrganization_id());
+        ps.setDouble(4, payment.getAmount());
+        ps.setDate(5, payment.getCreated_at());
+        ps.executeUpdate();
+    }
+    
+    public static HashMap<Payment, Post> getPaymentByCustomerId(int customer_id) throws Exception {
+        HashMap<Payment, Post> history = new HashMap<>();
+        loadDriver();
+        Connection con = getConnection();
+        PreparedStatement ps = con.prepareStatement("select * from Payment where customer_id=?");
+        ps.setInt(1, customer_id);
+        ResultSet rs = ps.executeQuery();
+        while(rs.next()){
+            Payment p = new Payment(
+                 rs.getInt("customer_id"),
+                    rs.getInt("organization_id"),
+                    rs.getInt("post_id"),
+                    rs.getInt("amount"),
+                    rs.getDate("created_at")
+            );
+            Post post = getPostById(p.getPost_id());
+            history.put(p, post);
+        }
+        return history;
+    }
 }

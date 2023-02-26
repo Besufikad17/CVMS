@@ -10,12 +10,6 @@
     <body>
         <header class="header ">
             <a href="index.html" class="logo"><span>rapid</span>rental</a>
-            <nav class="navbar">
-                <a href="#vehicles">vehicles</a>
-                <a href="#service">service</a>
-                <a href="#contact">contact</a>
-            </nav> 
-
             <%
                 Object user = session.getAttribute("user");
 
@@ -24,7 +18,7 @@
                         Customer customer = (Customer) user;
                         %>
                             <form method="post" action="LogoutController" class="form-row">
-                                <p class="user"><%=customer.getUsername()%></p>
+                                <p class="user"><a href="profile.jsp"><%=customer.getUsername()%></a></p>
                                 <button class="secondary">logout</button>
                             </form>
                         <%
@@ -32,7 +26,7 @@
                         Organization org = (Organization) user;
                         %>
                             <form method="post" action="LogoutController" class="form-row">
-                                <p class="user"><%=org.getEmail()%></p>
+                                <p class="user"><a href="profile.jsp"><%=org.getEmail()%></a></p>
                                 <button class="secondary">logout</button>
                             </form>
                         <%

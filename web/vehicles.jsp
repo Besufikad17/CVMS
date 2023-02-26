@@ -38,17 +38,34 @@
                                               for (int i = 0; i < posts.size(); i++) {
                                                 Post p = posts.get(i);
                                                 Automobile a = Utils.getAutomobileById(p.getAutomotive_id());
-                                                %>
-                                                    <div class="card2">
-                                                        <img src="<%=(a.getImg_url())%>" />
-                                                        <div class="details">
-                                                            <h1><%=(a.getModel())%></h1>
-                                                            <h1>Quantity: <%=(p.getQuantity())%></h1>
-                                                            <h1>Type: <%=(p.getType())%></h1>
-                                                            <h1>Price: <%=(p.getPrice())%> birr</h1>
+                                                ArrayList<Integer> cars = Utils.getReservedCarsId(customer.getId());
+                                                if(cars.indexOf(p.getId()) == -1){
+                                                    %>
+                                                        <div class="card2">
+                                                            <img src="<%=(a.getImg_url())%>" />
+                                                            <div class="details">
+                                                                <h1><%=(a.getModel())%></h1>
+                                                                <h1>Quantity: <%=(p.getQuantity())%></h1>
+                                                                <h1>Type: <%=(p.getType())%></h1>
+                                                                <h1>Price: <%=(p.getPrice())%> birr</h1>
+                                                                <a href="checkout.jsp?post_id=<%=p.getId()%>" class="reserve"><button class="primary">Reserve</button></a>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                <%
+                                                    <%
+                                                }else{
+                                                    %>
+                                                        <div class="card2">
+                                                            <img src="<%=(a.getImg_url())%>" />
+                                                            <div class="details">
+                                                                <h1><%=(a.getModel())%></h1>
+                                                                <h1>Quantity: <%=(p.getQuantity())%></h1>
+                                                                <h1>Type: <%=(p.getType())%></h1>
+                                                                <h1>Price: <%=(p.getPrice())%> birr</h1>
+                                                                <span class="reserve">Reserved</span>
+                                                            </div>
+                                                        </div>
+                                                    <%
+                                                }
                                                }
                                              %>
                                         </div>
@@ -79,7 +96,8 @@
                                               for (int i = 0; i < posts.size(); i++) {
                                                 Post p = posts.get(i);
                                                 Automobile a = Utils.getAutomobileById(p.getAutomotive_id());
-                                                    %>
+                                                if(!p.isIsHidden()){
+                                                %>
                                                        <div class="card2">
                                                             <img src="<%=(a.getImg_url())%>" />
                                                             <div class="details">
@@ -90,6 +108,8 @@
                                                             </div>
                                                         </div>
                                                     <%
+                                                }
+                                                    
                                                }
                                              %>
                                         </div>
